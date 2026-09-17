@@ -93,7 +93,7 @@ Configure `server/.env` (ignored by Git):
 
 ```env
 PORT=5000
-MONGO_URI=mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/tiffintrack?retryWrites=true&w=majority
+MONGO_URI=mongodb+srv://<username>:<password>@<cluster>/<database>?retryWrites=true&w=majority
 ```
 
 > **Security Note:** `server/.env` is strictly ignored by `.gitignore` and must never be committed.

@@ -2,7 +2,7 @@
 
 This document records the complete chronological interaction history, prompt requirements, tool actions, and responses between the user and the AI assistant during the development of TiffinTrack.
 
-> **Security Note:** Sensitive credentials and passwords have been automatically masked with <db_password_hidden> in this log.
+> **Security Note:** All credentials, connection strings, and passwords have been replaced with standard generic placeholders (e.g. `mongodb+srv://<username>:<password>@<cluster>/<database>`).
 
 ---
 
@@ -535,7 +535,7 @@ To connect to your actual MongoDB Atlas cluster:
    - Choose **Drivers** (Node.js).
    - Copy the SRV connection string, which looks like:
      ```text
-     mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/tiffintrack?retryWrites=true&w=majority
+     mongodb+srv://<username>:<password>@<cluster>/<database>?retryWrites=true&w=majority
      ```
 
 2. **Configure Network Access and Database User**:
@@ -681,7 +681,7 @@ Process exited with code 1
 Replace `YOUR_MONGODB_ATLAS_CONNECTION_STRING` in [`server/.env`](file:///c:/Users/dell/Desktop/tiffin%20%20service/server/.env) with your actual MongoDB Atlas SRV URI:
 ```env
 PORT=5000
-MONGO_URI=mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/tiffintrack?retryWrites=true&w=majority
+MONGO_URI=mongodb+srv://<username>:<password>@<cluster>/<database>?retryWrites=true&w=majority
 ```
 Once saved, running `npm run dev` in `server/` will confirm:
 ```text
@@ -774,7 +774,7 @@ MONGO_URI=YOUR_MONGODB_ATLAS_CONNECTION_STRING
 ```
 Because this string does not begin with `mongodb://` or `mongodb+srv://`, Mongoose rejects it with `Invalid scheme` and the server stops immediately.
 
-To connect successfully, replace `YOUR_MONGODB_ATLAS_CONNECTION_STRING` in [`server/.env`](file:///c:/Users/dell/Desktop/tiffin%20%20service/server/.env) with your MongoDB Atlas connection string (e.g. `mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/tiffintrack?retryWrites=true&w=majority`). The `node --watch` process will automatically detect the change, connect to Atlas, and start the server.
+To connect successfully, replace `YOUR_MONGODB_ATLAS_CONNECTION_STRING` in [`server/.env`](file:///c:/Users/dell/Desktop/tiffin%20%20service/server/.env) with your MongoDB Atlas connection string (e.g. `mongodb+srv://<username>:<password>@<cluster>/<database>`). The `node --watch` process will automatically detect the change, connect to Atlas, and start the server.
 
 ---
 
@@ -792,7 +792,7 @@ Do NOT reveal or print the MongoDB password or full MONGO_URI.
 Verify only:
 1. MONGO_URI starts with mongodb:// or mongodb+srv://
 2. MONGO_URI contains @
-3. MONGO_URI contains the Atlas host cluster0.euii5ew.mongodb.net
+3. MONGO_URI contains the Atlas host <cluster>
 4. connectDB() is awaited before app.listen()
 5. Run npm run dev and show the complete output.
 
@@ -816,7 +816,7 @@ We checked [`server/.env`](file:///c:/Users/dell/Desktop/tiffin%20%20service/ser
 |---|---|---|
 | **1. Starts with `mongodb://` or `mongodb+srv://`** | ❌ **False** | The file on disk still contains the literal string `YOUR_MONGODB_ATLAS_CONNECTION_STRING`. |
 | **2. Contains `@`** | ❌ **False** | `@` is not present in the current file on disk. |
-| **3. Contains `cluster0.euii5ew.mongodb.net`** | ❌ **False** | Host is not present in the current file on disk. |
+| **3. Contains `<cluster>`** | ❌ **False** | Host is not present in the current file on disk. |
 | **4. `connectDB()` is awaited before `app.listen()`** | ✅ **True** | In `server/src/index.js`, `await connectDB()` is called before `app.listen()`. |
 
 ---
@@ -842,7 +842,7 @@ The file on disk at [`server/.env`](file:///c:/Users/dell/Desktop/tiffin%20%20se
   PORT=5000
   MONGO_URI=YOUR_MONGODB_ATLAS_CONNECTION_STRING
   ```
-- If you pasted your connection string containing `cluster0.euii5ew.mongodb.net` into an editor tab, please make sure to **Save the file (`Ctrl + S`)**.
+- If you pasted your connection string containing `<cluster>` into an editor tab, please make sure to **Save the file (`Ctrl + S`)**.
 - Once saved to disk, the watcher will automatically reload with your connection string and attempt to connect to MongoDB Atlas.
 
 ---
@@ -859,7 +859,7 @@ I am running out of time. Fix ONLY the server/.env file.
 Write the following structure into server/.env:
 
 PORT=5000
-MONGO_URI=mongodb+srv://guptashruti042005_db_user:<db_password_hidden>@cluster0.euii5ew.mongodb.net/tiffintrack?retryWrites=true&w=majority&appName=Cluster0
+MONGO_URI=mongodb+srv://<username>:<password>@<cluster>/<database>
 
 IMPORTANT:
 - Replace <db_password> with the actual MongoDB Atlas database-user password ONLY if that password is already available to you through the existing project/environment. Do not invent a password.
@@ -894,7 +894,7 @@ IMPORTANT:
 > node --watch src/index.js
 
 MONGO_URI loaded: true
-MongoDB Connected: ac-afmg7ha-shard-00-00.euii5ew.mongodb.net
+MongoDB Connected: <cluster-host>
 Server is running on port 5000
 ```
 
@@ -958,7 +958,7 @@ Do not change anything else in the project.
 > server@1.0.0 dev
 > node --watch src/index.js
 
-MongoDB Connected: ac-afmg7ha-shard-00-01.euii5ew.mongodb.net
+MongoDB Connected: <cluster-host>
 Server is running on port 5000
 ```
 
