@@ -12,7 +12,7 @@ This document records the complete chronological interaction history, prompt req
 
 ### User Request
 
-`	ext
+```text
 Build a full-stack web application called "TiffinTrack" for a home-style tiffin/lunch delivery service.
 
 TECH STACK:
@@ -177,7 +177,7 @@ Last progress: 0s ago
 
 ### User Request
 
-`	ext
+```text
 Stop the implementation for now.
 
 We are building TiffinTrack step by step. Do NOT implement the complete application yet.
@@ -324,7 +324,7 @@ npm run dev
 
 ### User Request
 
-`	ext
+```text
 We are doing ONLY the MongoDB connection step.
 
 My current server/src/index.js is:
@@ -465,7 +465,7 @@ Response: {"success":true,"message":"TiffinTrack API is running"}
 
 ### User Request
 
-`	ext
+```text
 The MongoDB setup needs one correction before we continue.
 
 Do NOT use mongodb-memory-server or any in-memory MongoDB fallback.
@@ -572,7 +572,7 @@ To connect to your actual MongoDB Atlas cluster:
 
 ### User Request
 
-`	ext
+```text
 The server starts on port 5000, but there is no "MongoDB Connected" message.
 
 Please inspect the current server/src/index.js and server/src/config/db.js and diagnose why the MongoDB connection is not being confirmed.
@@ -697,7 +697,7 @@ Server is running on port 5000
 
 ### User Request
 
-`	ext
+```text
 Do not change the project architecture or add any new database package.
 
 Debug why MongoDB Atlas is not connecting.
@@ -784,7 +784,7 @@ To connect successfully, replace `YOUR_MONGODB_ATLAS_CONNECTION_STRING` in [`ser
 
 ### User Request
 
-`	ext
+```text
 Check server/.env again.
 
 Do NOT reveal or print the MongoDB password or full MONGO_URI.
@@ -853,7 +853,7 @@ The file on disk at [`server/.env`](file:///c:/Users/dell/Desktop/tiffin%20%20se
 
 ### User Request
 
-`	ext
+```text
 I am running out of time. Fix ONLY the server/.env file.
 
 Write the following structure into server/.env:
@@ -906,7 +906,7 @@ Server is running on port 5000
 
 ### User Request
 
-`	ext
+```text
 The Codespace backend shows only:
 Server is running on port 5000
 
@@ -991,7 +991,7 @@ GET http://localhost:5000/api/health
 
 ### User Request
 
-`	ext
+```text
 You are the implementation agent for the TiffinTrack assessment.
 
 WORKSPACE:
@@ -1264,7 +1264,7 @@ dist/assets/index-Btg8nbcD.js   248.27 kB │ gzip: 74.79 kB
 
 ### User Request
 
-`	ext
+```text
 commit byyourself
 `
 
@@ -1299,7 +1299,7 @@ Remote: https://github.com/guptashruti042005-pixel/tiffin-service.git (main -> m
 
 ### User Request
 
-`	ext
+```text
 commit all files
 `
 
@@ -1340,7 +1340,7 @@ Working tree: clean (nothing to commit)
 
 ### User Request
 
-`	ext
+```text
 create ai logs in which all the chat with the ai tools should be there and reasoning.md there should be the logic should be there
 `
 
@@ -1374,3 +1374,50 @@ Turn 13 User msg preview: <USER_REQUEST> create ai logs in which all the cha | T
 
 ---
 
+
+## Session Turn 14: External AI Review & Codespace Verification (ChatGPT)
+
+**Timestamp:** 2026-09-17T11:23:48Z
+
+### User Request (ChatGPT Review & Sync Directives)
+
+```text
+Yes — now I understand the exact problem.
+
+Antigravity is working on your local Windows folder:
+C:\Users\dell\Desktop\tiffin service
+
+Your GitHub Codespace is a different environment:
+/workspaces/tiffin-service
+
+So Antigravity can successfully connect MongoDB locally, while the Codespace still has the old code/config.
+
+We need to push the working code to GitHub, then pull it into Codespace.
+
+### Verification Performed by ChatGPT
+- 29/29 tests pass — 0 failures.
+- T1 /api/clock + /outbox implemented and tested.
+- T4 messy import + deduplication + validation implemented and tested.
+- T6 mid-cycle transfer + billing split implemented and tested.
+- Frontend production build successful.
+- Changes GitHub main par successfully push ho gaye hain. Commit 7707814.
+- .env GitHub par push nahi hua.
+
+### Audit Request: Check for any in-memory or localhost database fallbacks:
+grep -R "mongodb-memory-server|127.0.0.1|localhost" src
+```
+
+### AI Tool Actions Executed
+
+- **run_command**: Grep server/src for fallbacks (`grep -R "mongodb-memory-server|127.0.0.1|localhost" server/src`)
+  - *Result*: 0 occurrences in application source code (`config/`, `controllers/`, `models/`, `routes/`, `services/`, `utils/`, `index.js`). Only appears in ephemeral test runner test harnesses (`baseUrl = "http://127.0.0.1:" + port`).
+- **write_to_file**: Update `AI_LOGS.md` and `REASONING.md`
+- **run_command**: Run automated tests, verify git status, commit, and push.
+
+### Assistant Response
+
+1. Confirmed zero in-memory or localhost database fallbacks in application code.
+2. Verified that application connects directly and exclusively to MongoDB Atlas via `process.env.MONGO_URI`.
+3. Documented complete Codespace runbook for pulling and running in `/workspaces/tiffin-service`.
+
+---
